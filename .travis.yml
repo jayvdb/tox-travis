@@ -22,15 +22,11 @@ before_install:
  - ORIG_SETUPTOOLS_VERSION=`python -c "import setuptools; print('%s' % setuptools.__version__)"`
  - echo setuptools $ORIG_SETUPTOOLS_VERSION
 install:
- # A recent setuptools is needed to parse setup.py to create the wheel
- - pip install --upgrade setuptools==$SETUPTOOLS_VERSION wheel
- - python setup.py bdist_wheel
- # Reset to original setuptools to confirm the wheel can be installed on
- # Travis without any extra installation steps
+ - pip install --upgrade setuptools==$SETUPTOOLS_VERSION
+ - python setup.py install
  - pip install --upgrade setuptools==$ORIG_SETUPTOOLS_VERSION
- - pip install ./dist/tox_travis-*.whl
 script:
- - tox --installpkg ./dist/tox_travis-*.whl
+ - tox
 
 matrix:
   fast_finish: true
