@@ -1,7 +1,7 @@
 sudo: false
 language: python
 python:
- - "3.5"
+ - 2.7
 
 env:
  - SETUPTOOLS_VERSION=0.6c11
