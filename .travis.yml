@@ -1,16 +1,21 @@
 sudo: false
 language: python
 python:
- - "2.6"
- - "2.7"
- - "3.2"
- - "3.3"
- - "3.4"
  - "3.5"
- - "pypy"
- - "pypy3"
- - "pypy3.3-5.2-alpha1"
- - "nightly"
+
+env:
+ - SETUPTOOLS_VERSION=13.0.2
+ - SETUPTOOLS_VERSION=14.3
+ - SETUPTOOLS_VERSION=15.2
+ - SETUPTOOLS_VERSION=16.0
+ - SETUPTOOLS_VERSION=17.1.1
+ - SETUPTOOLS_VERSION=18.8
+ - SETUPTOOLS_VERSION=19.7
+ - SETUPTOOLS_VERSION=20.10.1
+ - SETUPTOOLS_VERSION=21.2.2
+ - SETUPTOOLS_VERSION=22.0.5
+ - SETUPTOOLS_VERSION=23.2.1
+ - SETUPTOOLS_VERSION=24.0.3
 
 before_install:
  # Save the setuptools version
@@ -18,7 +23,7 @@ before_install:
  - echo setuptools $ORIG_SETUPTOOLS_VERSION
 install:
  # A recent setuptools is needed to parse setup.py to create the wheel
- - pip install --upgrade setuptools wheel
+ - pip install --upgrade setuptools==$SETUPTOOLS_VERSION wheel
  - python setup.py bdist_wheel
  # Reset to original setuptools to confirm the wheel can be installed on
  # Travis without any extra installation steps
@@ -27,8 +32,5 @@ install:
 script:
  - tox --installpkg ./dist/tox_travis-*.whl
 
-branches:
-  only:
-    - master
 matrix:
   fast_finish: true
