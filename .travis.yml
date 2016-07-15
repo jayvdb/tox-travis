@@ -38,9 +38,11 @@ before_install:
  - ORIG_SETUPTOOLS_VERSION=`python -c "import setuptools; print('%s' % setuptools.__version__)"`
  - echo setuptools $ORIG_SETUPTOOLS_VERSION
 install:
- - pip install --upgrade setuptools==$SETUPTOOLS_VERSION
+ - pip install --upgrade setuptools==$SETUPTOOLS_VERSION wheel
  - python setup.py install
+ - python setup.py bdist_wheel
  - pip install --upgrade setuptools==$ORIG_SETUPTOOLS_VERSION
+ - pip install ./dist/tox_travis-*.whl
 script:
  - tox
 
