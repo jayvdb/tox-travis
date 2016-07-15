@@ -7,6 +7,7 @@ except ImportError:
 else:
     def _markerlib_evaluate(text):
         env = _markerlib.default_environment()
+        print('markerlib env', env)
         for key in list(env):
             new_key = key.replace('.', '_')
             env[new_key] = env.pop(key)
