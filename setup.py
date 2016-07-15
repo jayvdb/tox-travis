@@ -3,6 +3,7 @@ try:
 except ImportError:
     pass
 else:
+    print(dir(_markerlib))
     # _markerlib.default_environment() obtains its data from _VARS
     env = _markerlib._VARS
     for key in list(env.keys()):
