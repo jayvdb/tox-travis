@@ -10,8 +10,17 @@ else:
             super(ReadOnlyDict, self).__init__(data)
 
         def __setitem__(self, key, value):
+            print('setitem', self.readonly)
             if not self.readonly:
                 return super(ReadOnlyDict, self).__setitem__(key, value)
+            else:
+                print('skipped setitem', key)
+
+        def copy(self):
+            raise RuntimeError('copying..')
+
+        def update(self, *args, **kwargs):
+            raise RuntimeError('updating..')
 
 
     # _markerlib.default_environment() obtains its data from _VARS
