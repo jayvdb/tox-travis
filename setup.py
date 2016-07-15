@@ -1,10 +1,29 @@
+import sys
+
 try:
-    import pkg_resources
-    del pkg_resources.parser
-    pkg_resources.evaluate_marker = pkg_resources.MarkerEvaluation._markerlib_evaluate
-    pkg_resources.MarkerEvaluation.evaluate_marker = pkg_resources.MarkerEvaluation._markerlib_evaluate
-except (ImportError, AttributeError):
+    import _markerlib
+except ImportError:
     pass
+else:
+    def _markerlib_evaluate(text):
+        env = _markerlib.default_environment()
+        for key in list(env):
+            new_key = key.replace('.', '_')
+            env[new_key] = env.pop(key)
+        try:
+            result = _markerlib.interpret(text, env)
+        except NameError:
+            e = sys.exc_info()[1]
+            raise SyntaxError(e.args[0])
+        return result
+
+    try:
+        import pkg_resources
+        del pkg_resources.parser
+        pkg_resources.evaluate_marker = _markerlib_evaluate
+        pkg_resources.MarkerEvaluation.evaluate_marker = classmethod(_markerlib_evaluate)
+    except (ImportError, AttributeError):
+        pass
 
 from setuptools import setup
 
