@@ -15,7 +15,6 @@ python:
  - nightly
 
 env:
- matrix:
   - SETUPTOOLS_VERSION=0.9.8
   - SETUPTOOLS_VERSION=1.4.2
   - SETUPTOOLS_VERSION=2.2
