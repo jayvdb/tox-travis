@@ -45,9 +45,6 @@ env:
   - SETUPTOOLS_VERSION=24.0.2
   - SETUPTOOLS_VERSION=24.0.3
 
- global:
-  -VIRTUALENV_DOWNLOAD=no
-
 before_install:
  # Save the setuptools version
  - ORIG_SETUPTOOLS_VERSION=`python -c "import setuptools; print('%s' % setuptools.__version__)"`
