@@ -6,7 +6,7 @@ except ImportError:
     pass
 else:
     print('providing py3 compatible _markerlib_evaluate')
-    def _markerlib_evaluate(text):
+    def _markerlib_evaluate(cls, text):
         env = _markerlib.default_environment()
         print('markerlib env', env)
         for key in list(env.keys()):
@@ -22,8 +22,8 @@ else:
     try:
         import pkg_resources
         del pkg_resources.parser
-        pkg_resources.evaluate_marker = _markerlib_evaluate
         pkg_resources.MarkerEvaluation.evaluate_marker = classmethod(_markerlib_evaluate)
+        pkg_resources.evaluate_marker = pkg_resources.MarkerEvaluation.evaluate_marker
     except (ImportError, AttributeError):
         pass
 
