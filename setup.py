@@ -5,10 +5,11 @@ try:
 except ImportError:
     pass
 else:
+    print('providing py3 compatible _markerlib_evaluate')
     def _markerlib_evaluate(text):
         env = _markerlib.default_environment()
         print('markerlib env', env)
-        for key in list(env):
+        for key in list(env.keys()):
             new_key = key.replace('.', '_')
             env[new_key] = env.pop(key)
         try:
