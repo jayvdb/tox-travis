@@ -4,14 +4,6 @@ import re
 import py
 import tox
 
-try:
-    import pkg_resources
-    del pkg_resources.parser
-    pkg_resources.evaluate_marker = pkg_resources.MarkerEvaluation._markerlib_evaluate
-    pkg_resources.MarkerEvaluation.evaluate_marker = pkg_resources.MarkerEvaluation._markerlib_evaluate
-except (ImportError, AttributeError):
-    pass
-
 from tox.config import _split_env as split_env
 from tox.config import default_factors
 
