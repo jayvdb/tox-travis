@@ -23,6 +23,8 @@ else:
 
     _markerlib.markers._VARS = ReadOnlyDict(env)
 
+    _markerlib.default_environment = lambda: _markerlib.markers._VARS
+
 try:
     import pkg_resources
     del pkg_resources.parser
