@@ -3,10 +3,12 @@ try:
 except ImportError:
     pass
 else:
-    env = _markerlib.default_environment()
+    # _markerlib.default_environment() obtains its data from _VARS
+    env = _markerlib._VARS
     for key in list(env.keys()):
         new_key = key.replace('.', '_')
-        env[new_key] = env.pop(key)
+        if new_key != key:
+            env[new_key] = env[key]
 
 try:
     import pkg_resources
