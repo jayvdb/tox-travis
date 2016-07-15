@@ -5,18 +5,10 @@ except ImportError:
 else:
     class ReadOnlyDict(dict):
 
-        def __init__(self, data):
-            self.readonly = False
-            super(ReadOnlyDict, self).__init__(data)
-
         def __setitem__(self, key, value):
-            print('setitem', self.readonly)
-            if not self.readonly:
-                return super(ReadOnlyDict, self).__setitem__(key, value)
-            else:
-                print('skipped setitem', key)
+            pass
 
-        def pop(self, i):
+        def pop(self, i=-1):
             return self[i]
 
 
@@ -31,7 +23,6 @@ else:
     _markerlib.markers._VARS.readonly = True
 
     def default_environment():
-        print('getting default_environment', type(_markerlib.markers._VARS), _markerlib.markers._VARS)
         return _markerlib.markers._VARS
 
 
