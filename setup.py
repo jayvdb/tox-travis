@@ -19,12 +19,6 @@ else:
         def pop(self, i):
             return self[i]
 
-        def copy(self):
-            raise RuntimeError('copying..')
-
-        def update(self, *args, **kwargs):
-            raise RuntimeError('updating..')
-
 
     # _markerlib.default_environment() obtains its data from _VARS
     env = _markerlib.markers._VARS
