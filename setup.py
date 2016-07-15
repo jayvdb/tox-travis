@@ -2,6 +2,7 @@ try:
     import pkg_resources
     del pkg_resources.parser
     pkg_resources.evaluate_marker = pkg_resources.MarkerEvaluation._markerlib_evaluate
+    pkg_resources.MarkerEvaluation.evaluate_marker = pkg_resources.MarkerEvaluation._markerlib_evaluate
 except (ImportError, AttributeError):
     pass
 
