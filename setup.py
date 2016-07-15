@@ -3,12 +3,25 @@ try:
 except ImportError:
     pass
 else:
+    class ReadOnlyDict(dict):
+
+        def __init__(self, data):
+            self.readonly = False
+            super(ReadOnlyDict, self).__init__(data)
+
+        def __setitem__(self, key, value):
+            if not self.readonly:
+                return super(ReadOnlyDict, self).__setitem__(key, value)
+
+
     # _markerlib.default_environment() obtains its data from _VARS
     env = _markerlib.markers._VARS
     for key in list(env.keys()):
         new_key = key.replace('.', '_')
         if new_key != key:
             env[new_key] = env[key]
+
+    _markerlib.markers._VARS = ReadOnlyDict(env)
 
 try:
     import pkg_resources
