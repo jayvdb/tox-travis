@@ -16,6 +16,9 @@ else:
             else:
                 print('skipped setitem', key)
 
+        def pop(self, i):
+            return self[i]
+
         def copy(self):
             raise RuntimeError('copying..')
 
