@@ -1,31 +1,20 @@
-import sys
-
 try:
     import _markerlib
 except ImportError:
     pass
 else:
-    print('providing py3 compatible _markerlib_evaluate')
-    def _markerlib_evaluate(cls, text):
-        env = _markerlib.default_environment()
-        print('markerlib env', env)
-        for key in list(env.keys()):
-            new_key = key.replace('.', '_')
-            env[new_key] = env.pop(key)
-        try:
-            result = _markerlib.interpret(text, env)
-        except NameError:
-            e = sys.exc_info()[1]
-            raise SyntaxError(e.args[0])
-        return result
+    env = _markerlib.default_environment()
+    for key in list(env.keys()):
+        new_key = key.replace('.', '_')
+        env[new_key] = env.pop(key)
 
-    try:
-        import pkg_resources
-        del pkg_resources.parser
-        pkg_resources.MarkerEvaluation.evaluate_marker = classmethod(_markerlib_evaluate)
-        pkg_resources.evaluate_marker = pkg_resources.MarkerEvaluation.evaluate_marker
-    except (ImportError, AttributeError):
-        pass
+try:
+    import pkg_resources
+    del pkg_resources.parser
+    pkg_resources.MarkerEvaluation.evaluate_marker = pkg_resources.MarkerEvaluation._markerlib_evaluate
+    pkg_resources.evaluate_marker = pkg_resources.MarkerEvaluation.evaluate_marker
+except (ImportError, AttributeError):
+    pass
 
 from setuptools import setup
 
