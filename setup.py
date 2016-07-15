@@ -23,7 +23,12 @@ else:
 
     _markerlib.markers._VARS = ReadOnlyDict(env)
 
-    _markerlib.default_environment = lambda: _markerlib.markers._VARS
+    def default_environment():
+        print('getting default_environment', _markerlib.markers._VARS)
+        return _markerlib.markers._VARS
+
+
+    _markerlib.default_environment = default_environment
 
 try:
     import pkg_resources
