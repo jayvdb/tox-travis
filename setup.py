@@ -1,6 +1,6 @@
 try:
     import pkg_resources
-    del pkg_resources.parser.parser
+    del pkg_resources.parser
     pkg_resources.evaluate_marker = pkg_resources.MarkerEvaluation._markerlib_evaluate
 except (ImportError, AttributeError):
     pass
