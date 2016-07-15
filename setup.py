@@ -1,11 +1,10 @@
 try:
-    import _markerlib
+    import _markerlib.markers
 except ImportError:
     pass
 else:
-    print(dir(_markerlib))
     # _markerlib.default_environment() obtains its data from _VARS
-    env = _markerlib._VARS
+    env = _markerlib.markers._VARS
     for key in list(env.keys()):
         new_key = key.replace('.', '_')
         if new_key != key:
