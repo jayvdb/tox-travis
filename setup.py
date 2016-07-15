@@ -22,9 +22,10 @@ else:
             env[new_key] = env[key]
 
     _markerlib.markers._VARS = ReadOnlyDict(env)
+    _markerlib.markers._VARS.readonly = True
 
     def default_environment():
-        print('getting default_environment', _markerlib.markers._VARS)
+        print('getting default_environment', type(_markerlib.markers._VARS), _markerlib.markers._VARS)
         return _markerlib.markers._VARS
 
 
