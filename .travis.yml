@@ -113,6 +113,3 @@ install:
  - if [ $SETUPTOOLS_VERSION != "0.6c11" ]; then pip install ./dist/tox_travis-*.whl ; fi
 script:
  - tox
-
-matrix:
-  fast_finish: true
