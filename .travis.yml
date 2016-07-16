@@ -57,13 +57,56 @@ matrix:
       env: SETUPTOOLS_VERSION=0.6c11
     - python: pypy-5.3.1
       env: SETUPTOOLS_VERSION=0.6c11
+  exclude:
+    # python setup.py bdist_wheel fails until setuptools v19
+    - python: pypy3.3-5.2-alpha1
+      env: SETUPTOOLS_VERSION=0.6c11
+    - python: pypy3.3-5.2-alpha1
+      env: SETUPTOOLS_VERSION=2.2
+    - python: pypy3.3-5.2-alpha1
+      env: SETUPTOOLS_VERSION=3.8.1
+    - python: pypy3.3-5.2-alpha1
+      env: SETUPTOOLS_VERSION=4.0.1
+    - python: pypy3.3-5.2-alpha1
+      env: SETUPTOOLS_VERSION=5.8
+    - python: pypy3.3-5.2-alpha1
+      env: SETUPTOOLS_VERSION=6.1
+    - python: pypy3.3-5.2-alpha1
+      env: SETUPTOOLS_VERSION=7.0
+    - python: pypy3.3-5.2-alpha1
+      env: SETUPTOOLS_VERSION=8.3
+    - python: pypy3.3-5.2-alpha1
+      env: SETUPTOOLS_VERSION=9.1
+    - python: pypy3.3-5.2-alpha1
+      env: SETUPTOOLS_VERSION=10.2.1
+    - python: pypy3.3-5.2-alpha1
+      env: SETUPTOOLS_VERSION=11.3.1
+    - python: pypy3.3-5.2-alpha1
+      env: SETUPTOOLS_VERSION=12
+    - python: pypy3.3-5.2-alpha1
+      env: SETUPTOOLS_VERSION=13.0.2
+    - python: pypy3.3-5.2-alpha1
+      env: SETUPTOOLS_VERSION=14.3
+    - python: pypy3.3-5.2-alpha1
+      env: SETUPTOOLS_VERSION=15.2
+    - python: pypy3.3-5.2-alpha1
+      env: SETUPTOOLS_VERSION=16.0
+    - python: pypy3.3-5.2-alpha1
+      env: SETUPTOOLS_VERSION=17.1.1
+    - python: pypy3.3-5.2-alpha1
+      env: SETUPTOOLS_VERSION=18.4
+    - python: pypy3.3-5.2-alpha1
+      env: SETUPTOOLS_VERSION=18.5
+    - python: pypy3.3-5.2-alpha1
+      env: SETUPTOOLS_VERSION=19.0
+    - python: pypy3.3-5.2-alpha1
+      env: SETUPTOOLS_VERSION=19.1
+    - python: pypy3.3-5.2-alpha1
   allow_failures:
     - env: SETUPTOOLS_VERSION=0.9.8
     - env: SETUPTOOLS_VERSION=1.4.2
     - env: SETUPTOOLS_VERSION=18.5
     - env: SETUPTOOLS_VERSION=19.0
-    - python: pypy3.3-5.2-alpha1
-      env: SETUPTOOLS_VERSION=17.1.1
 
 before_install:
  # Save the setuptools version
@@ -72,13 +115,6 @@ before_install:
 
  - WHEEL_SUPPORT=1
  - if [ $SETUPTOOLS_VERSION == "0.6c11" ]; then WHEEL_SUPPORT=0 ; fi
- # python setup.py bdist_wheel fails until setuptools v19
- - |
-   if [ $TRAVIS_PYTHON_VERSION == "pypy3.3-5.2-alpha1" ]; then
-     if [ $SETUPTOOLS_VERSION == "2.2" -o $SETUPTOOLS_VERSION == "3.8.1" -o $SETUPTOOLS_VERSION == "4.0.1" -o $SETUPTOOLS_VERSION == "5.8" -o $SETUPTOOLS_VERSION == "6.1" -o $SETUPTOOLS_VERSION == "7.0" -o $SETUPTOOLS_VERSION == "8.3" -o $SETUPTOOLS_VERSION == "9.1" -o $SETUPTOOLS_VERSION == "10.2.1" -o $SETUPTOOLS_VERSION == "11.3.1" -o $SETUPTOOLS_VERSION == "12" -o $SETUPTOOLS_VERSION == "13.0.2" -o $SETUPTOOLS_VERSION == "14.3" -o $SETUPTOOLS_VERSION == "15.2" -o $SETUPTOOLS_VERSION == "16.0" ]; then
-       WHEEL_SUPPORT=0 ;
-     fi
-   fi
 
 install:
  - pip install --upgrade setuptools==$SETUPTOOLS_VERSION wheel
