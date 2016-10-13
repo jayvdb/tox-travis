@@ -23,10 +23,6 @@ script:
  - tox
  - tox --installpkg ./dist/tox_travis-*.whl
 
-branches:
-  only:
-    - master
-    - /^\d+(\.\d+)*$/
 matrix:
   fast_finish: true
 
