@@ -73,17 +73,17 @@ setup(
     # in the extras_require.
     install_requires=['six'],
     extras_require={
-        ':platform_python_implementation=="PyPy" and '
-        'python_version=="3.3"': ['virtualenv>=15.0.2'],
-
-        'python_version>"3.3"': [
+        ':python_version<"3.0" or python_version>="3.4"': [
             'tox>=2.0',
         ],
 
-        'python_version=="3.3"': [
+        ':python_version=="3.3"': [
             'setuptools<40',
             'tox>=2.0,<3',
         ],
+
+        ':platform_python_implementation=="PyPy" and '
+        'python_version=="3.3"': ['virtualenv>=15.0.2'],
     },
     classifiers=[
         'Development Status :: 4 - Beta',
