@@ -77,13 +77,17 @@ setup(
             'tox>=2.0',
         ],
 
-        ':python_version=="3.3"': [
+        ':python_version=="3.3" and platform_python_implementation!="PyPy"': [
             'setuptools<40',
+            'virtualenv<16.1',
             'tox>=2.0,<3',
         ],
 
-        ':platform_python_implementation=="PyPy" and '
-        'python_version=="3.3"': ['virtualenv>=15.0.2'],
+        ':python_version=="3.3" and platform_python_implementation=="PyPy"': [
+            'setuptools<40',
+            'virtualenv>=15.0.2,<16.1',
+            'tox>=2.0,<3',
+        ],
     },
     classifiers=[
         'Development Status :: 4 - Beta',
