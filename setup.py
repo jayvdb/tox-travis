@@ -78,14 +78,19 @@ setup(
         ],
 
         ':python_version=="3.3" and platform_python_implementation!="PyPy"': [
+            'wheel<0.30',
             'setuptools<40',
-            'virtualenv<16.1',
+            # virtualenv needs to be low enough that the pip and wheel
+            # both support Python 3.3.  virtualenv<16.1 would install acceptable
+            # pip 10.0.1 but also installs unacceptable wheel 0.31.1.
+            'virtualenv<15.1.0',
             'tox>=2.0,<3',
         ],
 
         ':python_version=="3.3" and platform_python_implementation=="PyPy"': [
+            'wheel<0.30',
             'setuptools<40',
-            'virtualenv>=15.0.2,<16.1',
+            'virtualenv>=15.0.2,<15.1.0',
             'tox>=2.0,<3',
         ],
     },
