@@ -68,18 +68,22 @@ setup(
     entry_points={
         'tox': ['travis = tox_travis.hooks'],
     },
-    install_requires=['tox>=2.0'],
+    # A value is needed for install_requires, otherwise nothing
+    # installed.  We can not use tox here, otherwise it cant be used
+    # in the extras_require.
+    install_requires=['six'],
     extras_require={
+        ':platform_python_implementation=="PyPy" and '
+        'python_version=="3.3"': ['virtualenv>=15.0.2'],
+
         'python_version>"3.3"': [
             'tox>=2.0',
         ],
-        ':platform_python_implementation=="PyPy" and '
+
         'python_version=="3.3"': [
             'setuptools<40',
             'tox>=2.0,<3',
         ],
-        ':platform_python_implementation=="PyPy" and '
-        'python_version=="3.3"': ['virtualenv>=15.0.2'],
     },
     classifiers=[
         'Development Status :: 4 - Beta',
