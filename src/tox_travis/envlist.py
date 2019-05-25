@@ -161,11 +161,15 @@ def get_desired_factors(ini):
         if factor in travis_section
     ]
 
+    print('found_factors', found_factors)
+
     # Backward compatibility with the old tox:travis section
     if 'tox:travis' in ini.sections:
         print('The [tox:travis] section is deprecated in favor of'
               ' the "python" key of the [travis] section.', file=sys.stderr)
         found_factors.append(('python', ini.sections['tox:travis']))
+
+    print('found_factors 2', found_factors)
 
     # Inject any needed autoenv
     version = os.environ.get('TRAVIS_PYTHON_VERSION')
@@ -176,6 +180,7 @@ def get_desired_factors(ini):
         python_factors = [(factor, mapping)
                           for factor, mapping in found_factors
                           if version and factor == 'python']
+        print('python_factors', python_factors)
         for _, mapping in python_factors:
             mapping.setdefault(version, default_envlist)
 
@@ -189,12 +194,16 @@ def get_desired_factors(ini):
         for name, value in ini.sections.get('travis:env', {}).items()
     ]
 
+    print('env_factors', env_factors)
+
     # Choose the correct envlists based on the factor values
-    return [
+    envlists = [
         split_env(mapping[os.environ[name]])
         for name, mapping in env_factors
         if name in os.environ and os.environ[name] in mapping
     ]
+    print('envlists', envlists)
+    return envlists
 
 
 def match_envs(declared_envs, desired_envs, passthru):
