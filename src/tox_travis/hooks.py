@@ -38,6 +38,7 @@ def tox_configure(config):
     # envlist
     if 'TOXENV' not in os.environ and not config.option.env:
         envlist = detect_envlist(ini)
+        print('tox-travis envlist', envlist)
         undeclared = set(envlist) - set(config.envconfigs)
         if undeclared:
             print('Matching undeclared envs is deprecated. Be sure all the '

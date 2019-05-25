@@ -16,15 +16,24 @@ def detect_envlist(ini):
     # Find the envs that tox knows about
     declared_envs = get_declared_envs(ini)
 
+    print('declared_envs', declared_envs)
+
     # Find all the envs for all the desired factors given
     desired_factors = get_desired_factors(ini)
+
+    print('desired_factors', desired_factors)
 
     # Reduce desired factors
     desired_envs = ['-'.join(env) for env in product(*desired_factors)]
 
+    print('desired_envs', desired_envs)
+
     # Find matching envs
-    return match_envs(declared_envs, desired_envs,
-                      passthru=len(desired_factors) == 1)
+    envlist = match_envs(declared_envs, desired_envs,
+                         passthru=len(desired_factors) == 1)
+
+    print('detected envlist', envlist)
+    return envlist
 
 
 def autogen_envconfigs(config, envs):
